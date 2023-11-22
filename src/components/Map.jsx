@@ -7,12 +7,13 @@ import {
   useMap,
   useMapEvents,
 } from "react-leaflet";
+
 import styles from "./Map.module.css";
 import { useEffect, useState } from "react";
 import { useCitiesContext } from "../contexts/CitiesContext";
 import { useGeolocation } from "../hooks/useGeolocation";
-import Button from "./Button";
 import { useUrlPosition } from "../hooks/useUrlPosition";
+import Button from "./Button";
 
 function Map() {
   const { cities } = useCitiesContext();
@@ -20,13 +21,13 @@ function Map() {
   // programmatic navigation, (good for navigating back)
   const [position, setPosition] = useState([27.71705, 68.86709]);
 
-  const [mapLat, mapLng] = useUrlPosition();
-
   const {
     isLoading: isLoadingPosition,
     position: geolocationPosition,
     getPosition,
   } = useGeolocation();
+
+  const [mapLat, mapLng] = useUrlPosition();
 
   useEffect(
     function () {
@@ -52,7 +53,6 @@ function Map() {
       )}
       <MapContainer
         center={position}
-        // center={[mapLat, mapLng]}
         zoom={6}
         scrollWheelZoom={true}
         className={styles.map}
